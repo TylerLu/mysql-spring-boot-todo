@@ -54,8 +54,8 @@
     },
     "resources": [
         {
-            "type": "Microsoft.DBforMySQL/servers",
             "apiVersion": "2017-12-01-preview",
+            "type": "Microsoft.DBforMySQL/servers",
             "name": "[variables('mySQLServerName')]",
             "sku": {
                 "name": "B_Gen5_1",
@@ -77,8 +77,8 @@
             },
             "resources": [
                 {
-                    "type": "databases",
                     "apiVersion": "2017-12-01-preview",
+                    "type": "databases",
                     "name": "[variables('mySQLDatabaseName')]",
                     "properties": {
                        "charset": "utf8",
@@ -89,8 +89,8 @@
                     ]
                 },
                 {
-                    "type": "firewallRules",
                     "apiVersion": "2017-12-01-preview",
+                    "type": "firewallRules",
                     "name": "AllowAllWindowsAzureIps",
                     "properties": {
                       "startIpAddress": "0.0.0.0",
@@ -103,8 +103,8 @@
             ]
         },
         {
-            "type": "Microsoft.Web/serverfarms",
             "apiVersion": "2016-09-01",
+            "type": "Microsoft.Web/serverfarms",
             "name": "[variables('servicePlanName')]",            
             "kind": "app",
             "location": "[variables('location')]",
@@ -117,8 +117,8 @@
             }
         },
         {
-            "type": "Microsoft.Web/sites",
             "apiVersion": "2016-08-01",
+            "type": "Microsoft.Web/sites",
             "name": "[variables('webAppName')]",
             "kind": "app",
             "location": "[variables('location')]",
@@ -127,8 +127,8 @@
             },
             "resources": [
                 {
-                    "type": "config",
                     "apiVersion": "2016-08-01",
+                    "type": "config",
                     "name": "web",
                     "properties": {
                         "javaVersion": "1.8",
@@ -140,8 +140,8 @@
                     ]
                 },
                 {
-                    "type": "config",
                     "apiVersion": "2016-08-01",
+                    "type": "config",
                     "name": "appsettings",
                     "properties": {
                         "SPRING_DATASOURCE_URL": "[concat('jdbc:mysql://', variables('mySQLServerName'), '.mysql.database.azure.com:3306/tododb?verifyServerCertificate=true&useSSL=true&requireSSL=false')]",
