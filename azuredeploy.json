@@ -131,10 +131,13 @@
                     "type": "config",
                     "name": "appsettings",
                     "properties": {
-                        "SPRING_DATASOURCE_URL": "[concat('jdbc:mysql://', variables('mySQLServerName'), '.mysql.database.azure.com:3306/tododb?verifyServerCertificate=true&useSSL=true&requireSSL=false')]"
+                        "SPRING_DATASOURCE_URL": "[concat('jdbc:mysql://', variables('mySQLServerName'), '.mysql.database.azure.com:3306/tododb?verifyServerCertificate=true&useSSL=true&requireSSL=false')]",
+                        "SPRING_DATASOURCE_USERNAME": "[parameters('databaseAdminLoginName')]",
+                        "SPRING_DATASOURCE_PASSWORD": "[parameters('databaseAdminLoginPassword')]",
+                        "command": "deploy.cmd"
                     },
                     "dependsOn": [
-                        "[resourceId('Microsoft.Web/sites', parameters('webAppName'))]"
+                        "[resourceId('Microsoft.Web/sites', parameters('webAppName'))]",
                     ]
                 },
                 {
