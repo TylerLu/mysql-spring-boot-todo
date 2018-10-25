@@ -123,22 +123,14 @@
             "kind": "app",
             "location": "[variables('location')]",
             "properties": {
-                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('servicePlanName'))]"
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('servicePlanName'))]",
+                "siteConfig": {
+                    "javaVersion": "1.8",
+                    "javaContainer": "TOMCAT",
+                    "javaContainerVersion": "8.0"
+                  }
             },
             "resources": [
-                {
-                    "apiVersion": "2016-08-01",
-                    "type": "config",
-                    "name": "web",
-                    "properties": {
-                        "javaVersion": "1.8",
-                        "javaContainer": "TOMCAT",
-                        "javaContainerVersion": "8.0"
-                    },
-                    "dependsOn": [
-                        "[resourceId('Microsoft.Web/sites', parameters('webAppName'))]"
-                    ]
-                },
                 {
                     "apiVersion": "2016-08-01",
                     "type": "config",
@@ -149,8 +141,7 @@
                         "SPRING_DATASOURCE_PASSWORD": "[parameters('databaseAdminLoginPassword')]"
                     },
                     "dependsOn": [
-                        "[resourceId('Microsoft.Web/sites', parameters('webAppName'))]",
-                        "[resourceId('Microsoft.DBforMySQL/servers', variables('mySQLServerName'))]"
+                        "[resourceId('Microsoft.Web/sites', parameters('webAppName'))]"
                     ]
                 },
                 {
