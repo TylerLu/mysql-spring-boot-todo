@@ -123,12 +123,7 @@
             "kind": "app",
             "location": "[variables('location')]",
             "properties": {
-                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('servicePlanName'))]",
-                "siteConfig": {
-                    "javaVersion": "1.8",
-                    "javaContainer": "TOMCAT",
-                    "javaContainerVersion": "8.0"
-                  }
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('servicePlanName'))]"
             },
             "resources": [
                 {
@@ -136,9 +131,7 @@
                     "type": "config",
                     "name": "appsettings",
                     "properties": {
-                        "SPRING_DATASOURCE_URL": "[concat('jdbc:mysql://', variables('mySQLServerName'), '.mysql.database.azure.com:3306/tododb?verifyServerCertificate=true&useSSL=true&requireSSL=false')]",
-                        "SPRING_DATASOURCE_USERNAME": "[parameters('databaseAdminLoginName')]",
-                        "SPRING_DATASOURCE_PASSWORD": "[parameters('databaseAdminLoginPassword')]"
+                        "SPRING_DATASOURCE_URL": "[concat('jdbc:mysql://', variables('mySQLServerName'), '.mysql.database.azure.com:3306/tododb?verifyServerCertificate=true&useSSL=true&requireSSL=false')]"
                     },
                     "dependsOn": [
                         "[resourceId('Microsoft.Web/sites', parameters('webAppName'))]"
@@ -157,7 +150,22 @@
                       "[resourceId('Microsoft.Web/sites/', variables('webAppName'))]",
                       "[resourceId('Microsoft.Web/Sites/config', variables('webAppName'), 'appsettings')]"
                     ]
+                },
+                {
+                    "apiVersion": "2016-08-01",
+                    "name": "web",
+                    "type": "config",
+                    "properties": {
+                        "javaVersion": "1.8",
+                        "javaContainer": "TOMCAT",
+                        "javaContainerVersion": "8.0"
+                    },
+                    "dependsOn": [
+                      "[resourceId('Microsoft.Web/sites/', variables('webAppName'))]",
+                      "[resourceId('Microsoft.Web/Sites/sourcecontrols', variables('webAppName'), 'web')]"
+                    ]
                 }
+
             ],
             "dependsOn": [
                 "[resourceId('Microsoft.Web/serverfarms', variables('servicePlanName'))]"
