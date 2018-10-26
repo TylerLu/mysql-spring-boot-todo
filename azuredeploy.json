@@ -123,7 +123,10 @@
             "kind": "app",
             "location": "[variables('location')]",
             "properties": {
-                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('servicePlanName'))]"
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('servicePlanName'))]",
+                "siteConfig": {
+                    "AlwaysOn": true
+                }
             },
             "resources": [
                 {
